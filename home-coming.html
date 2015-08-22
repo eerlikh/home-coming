@@ -34,7 +34,8 @@ function preload() {
 
     game.load.image('bullet', 'assets/games/invaders/bullet.png');
     game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
-    game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
+    // game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
+    game.load.spritesheet('invader', 'assets/defenders.png');
     // game.load.image('ship', 'assets/games/invaders/player.png');
     game.load.image('ship', 'assets/invader2.png');
     game.load.spritesheet('kaboom', 'assets/games/invaders/explode.png', 128, 128);
@@ -142,7 +143,7 @@ function createAliens () {
         {
             var alien = aliens.create(x * 48, y * 50, 'invader');
             alien.anchor.setTo(0.5, 0.5);
-            alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
+            // alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
             alien.play('fly');
             alien.body.moves = false;
         }
