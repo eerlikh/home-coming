@@ -2,18 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Phaser - Making your first game, part 9</title>
+  <title>Home Coming</title>
   <script type="text/javascript" src="js/phaser.min.js"></script>
   <style type="text/css">
       body {
-          margin: 0;
+        margin: 0;
+        background-color: grey;
+      }
+      #my_game {
+        width: 100%;
+        margin: 20px 0px;
+      }
+      #my_game canvas {
+        margin: 0 auto;
+        border: 100px darkgray solid;
+
       }
   </style>
 </head>
 
 <body>
 
-<div id="my_game"></div>
+    <div id="my_game"></div>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -25,7 +35,8 @@ function preload() {
     game.load.image('bullet', 'assets/games/invaders/bullet.png');
     game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
     game.load.spritesheet('invader', 'assets/games/invaders/invader32x32x4.png', 32, 32);
-    game.load.image('ship', 'assets/games/invaders/player.png');
+    // game.load.image('ship', 'assets/games/invaders/player.png');
+    game.load.image('ship', 'assets/invader2.png');
     game.load.spritesheet('kaboom', 'assets/games/invaders/explode.png', 128, 128);
     game.load.image('starfield', 'assets/games/invaders/starfield.png');
     game.load.image('background', 'assets/games/starstruck/background2.png');
@@ -79,7 +90,9 @@ function create() {
     //  The hero!
     player = game.add.sprite(400, 500, 'ship');
     player.anchor.setTo(0.5, 0.5);
+    // player.setAll('checkWorldBounds', true);
     game.physics.enable(player, Phaser.Physics.ARCADE);
+    player.body.collideWorldBounds = true;
 
     //  The baddies!
     aliens = game.add.group();
@@ -121,6 +134,7 @@ function create() {
 }
 
 function createAliens () {
+    console.log("create aliens")
 
     for (var y = 0; y < 4; y++)
     {
@@ -258,6 +272,9 @@ function collisionHandler (bullet, alien) {
 
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
+        // game.input.onDown.addOnce(restart,this);
+        // game.input.keyboard.onDownCallback(restart,this);
+
     }
 
 }
@@ -287,6 +304,7 @@ function enemyHitsPlayer (player,bullet) {
         stateText.text=" GAME OVER \n Click to restart";
         stateText.visible = true;
 
+        console.log("you died")
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
     }
@@ -350,17 +368,19 @@ function resetBullet (bullet) {
 }
 
 function restart () {
-
+    console.log("inside restart")
     //  A new level starts
 
     //resets the life count
     lives.callAll('revive');
+    console.log("resets live count")
     //  And brings the aliens back from the dead :)
     aliens.removeAll();
     createAliens();
 
     //revives the player
     player.revive();
+    // player.reset(400, 500);
     //hides the text
     stateText.visible = false;
 
