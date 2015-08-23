@@ -40,8 +40,10 @@ var livingEnemies = [];
 function create() {
 
     music = game.add.audio('gameMusic');
-
+    // music.pause();
+    // music.resume();
     music.play();
+    music.loopFull(1);
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -350,6 +352,7 @@ function resetBullet (bullet) {
 
 function restart () {
     console.log("inside restart")
+    // music.destroy();
     //  A new level starts
 
     //resets the life count

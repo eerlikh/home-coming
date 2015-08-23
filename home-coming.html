@@ -8,8 +8,8 @@
   <style type="text/css">
       body {
         margin: 0;
-        background-color: grey;
-        /*background-image: url("./assets/mainIntro.png");*/
+        /*background-color: grey;*/
+        background-image: url("./assets/Background.png");
       }
       #my_game {
         width: 100%;
@@ -17,7 +17,7 @@
       }
       #my_game canvas {
         margin: 0 auto;
-        border: 100px darkgray solid;
+        border: 10px darkgray solid;
         height: 600px;
         width: 800px;
       }
@@ -33,23 +33,30 @@
         height: 320px;
         width: 800px;
         position: relative;
-        margin: 100px auto;
+        margin: 0px auto;
     }
       #titleF {
         background-image: url("./assets/Title2.png");
-        height: 320px;
+        height: 430px;
         width: 800px;
         position: relative;
-        margin: 100px auto;
+        margin: 0px auto;
     }
       #startImage {
         background-image: url("./assets/start.png");
-        height: 600px;
+        height: 100px;
         width: 800px;
         position: relative;
         margin: 0 auto;
         background-repeat: no-repeat;
-    /*    display: inline;*/
+      }
+       #introMovie{
+        margin: 0 auto;
+        display: block;
+      }
+
+      .hidden {
+        display: none;
       }
 
   </style>
@@ -61,8 +68,13 @@
     <!-- <div id="my_game_intro"></div>  -->
 
     <div id="my_game">
-        <div id="container">
-            <div id="title"></div>
+        <video id="introMovie" width="800" height="600" controls autoplay>
+            <source src="./assets/Homecoming 2.ogg" type="video/ogg">
+            <source src="./assets/Homecoming 2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div id="container" class="hidden">
+            <div id="titleF"></div>
             <div id="startImage"></div>
         </div>
     </div>
@@ -70,14 +82,19 @@
 <script type="text/javascript ">
     var $gameDiv = $("#my_game");
     var $canvas = $('<canvas id="intro" class="title">');
-    $canvas.appendTo($gameDiv[0]).css('background-image', 'url(./assets/StartScreen.png)');
+    setTimeout(function(){
+        $("#introMovie").css("display","none")
+        $("#introMovie").addClass( "hidden");
+        $("#container").removeClass( "hidden");
+        $canvas.appendTo($gameDiv[0]).css('background-image', 'url(./assets/StartScreen.png)');
+    }, 28000);
 
 
     var game = document.getElementById('my_game');
 
     game.onclick = function(){
         console.log("clicked")
-        clearInterval(titleInterval);
+        // clearInterval(titleInterval);
         // $.loadScript('./js/stage1.js');
         var script = document.createElement("script");
         script.type = "text/javascript";
@@ -86,18 +103,18 @@
         return false;
     };
 
-    var titleInterval = setInterval(function(){
+    // var titleInterval = setInterval(function(){
 
-            var title = document.getElementById("title");
-            var titleF = document.getElementById("titleF");
-            if(title){
-                title.setAttribute("id", "titleF");
-            } else if(titleF){
-                titleF.setAttribute("id", "title");
-            } else{
-                console.log("error");
-            }
-     }, 3000);
+    //         var title = document.getElementById("title");
+    //         var titleF = document.getElementById("titleF");
+    //         if(title){
+    //             title.setAttribute("id", "titleF");
+    //         } else if(titleF){
+    //             titleF.setAttribute("id", "title");
+    //         } else{
+    //             console.log("error");
+    //         }
+    //  }, 3000);
 
     $(function ()
         {
